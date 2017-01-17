@@ -8,7 +8,7 @@
  * Controller of the zomockFeApp
  */
 angular.module('zomockFeApp')
-  .controller('MainCtrl', function ($scope, $routeParams, $location, $http, ENV) {
+  .controller('MainCtrl', function ($scope, $routeParams, $location, $http, ENV, CategoryService) {
 
     // $scope.fClient = $location.search();
     // $scope.event = JSON.parse($scope.fClient.flockEvent) ;
@@ -23,6 +23,12 @@ angular.module('zomockFeApp')
         	})
         };
 
-      $scope.key = ENV["zomato_key"];
+    var response = CategoryService.categories();
+ 
+ 	response.then(function(result){
+ 		$scope.categories = result.categories;	
+	});
 
-  });
+
+
+});
