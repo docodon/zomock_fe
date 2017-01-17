@@ -30,6 +30,37 @@ module.exports = function (grunt) {
 
     // Project settings
     yeoman: appConfig,
+    ngconstant: {
+  // Options for all targets
+    options: {
+     space: '  ',
+     wrap: '"use strict";\n\n {\%= __ngModule %}',
+     name: 'config',
+     },
+     // Environment targets
+     development: {
+        options: {
+        dest: '<%= yeoman.app %>/scripts/config.js'
+      },
+      constants: {
+         ENV: {
+          name: 'development',
+          apiEndpoint: 'http://localhost:3000',
+         }
+      }
+    },
+    production: {
+      options: {
+       dest: '<%= yeoman.dist %>/scripts/config.js'
+    },
+    constants: {
+      ENV: {
+        name: 'production',
+        apiEndpoint: 'http://api.livesite.com',
+       }
+      }
+    } 
+  },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -454,6 +485,7 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-ng-constant');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -465,6 +497,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'postcss:server',
+      'ngconstant:development', // ADD THIS
       'connect:livereload',
       'watch'
     ]);
@@ -486,6 +519,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:production', // ADD THIS
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

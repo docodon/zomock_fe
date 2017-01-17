@@ -1,1 +1,15 @@
-{{param.flockClient}}
+ <md-autocomplete flex
+
+    md-selected-item="location"
+    md-search-text="searchText"
+    md-items="item in querySearch(searchText)"
+    md-item-text="location.title"
+    md-delay="300"
+    md-floating-label="Enter location"
+    md-min-length="2">
+
+   <span md-highlight-text="searchText">{{item.title}}</span> 
+
+</md-autocomplete>
+
+{{location}}
