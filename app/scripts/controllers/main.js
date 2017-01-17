@@ -8,7 +8,8 @@
  * Controller of the zomockFeApp
  */
 angular.module('zomockFeApp')
-  .controller('MainCtrl', function ($scope, $routeParams, $location, $http, ENV, CategoryService) {
+  .controller('MainCtrl', function ($scope, $routeParams, $location, $http, ENV, CategoryService,
+  									CollectionService) {
 
     // $scope.fClient = $location.search();
     // $scope.event = JSON.parse($scope.fClient.flockEvent) ;
@@ -23,11 +24,19 @@ angular.module('zomockFeApp')
         	})
         };
 
-    var response = CategoryService.categories();
- 
- 	response.then(function(result){
+    var category_resp = CategoryService.categories();
+  	category_resp.then(function(result){
  		$scope.categories = result.categories;	
 	});
+
+
+    var category_resp = CollectionService.collections($scope.location.city_id);
+ 	category_resp.then(function(result){
+ 		$scope.collections = result.collections;	
+	});
+
+
+
 
 
 
