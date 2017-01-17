@@ -9,7 +9,7 @@
  */
 angular.module('zomockFeApp')
   .controller('MainCtrl', function ($scope, $routeParams, $location, $http, ENV, CategoryService,
-  									CollectionService) {
+  									CollectionService, CuisineService) {
 
     // $scope.fClient = $location.search();
     // $scope.event = JSON.parse($scope.fClient.flockEvent) ;
@@ -30,11 +30,15 @@ angular.module('zomockFeApp')
 	});
 
 
-    var category_resp = CollectionService.collections($scope.location.city_id);
- 	category_resp.then(function(result){
+    var collection_resp = CollectionService.collections($scope.location.city_id);
+ 	collection_resp.then(function(result){
  		$scope.collections = result.collections;	
 	});
 
+    var cuisine_resp = CuisineService.cuisines($scope.location.city_id);
+ 	cuisine_resp.then(function(result){
+ 		$scope.cuisines = result.cuisines;	
+	});
 
 
 
