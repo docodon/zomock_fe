@@ -13,6 +13,9 @@ angular.module('zomockFeApp')
   									CuisineService, EstablishmentService,
   									AuthenticateService, RestaurantListService) {
 
+    var PAGE_SIZE = ENV.pagination_size ;
+
+
     // $scope.fClient = $location.search();
     // $scope.event = JSON.parse($scope.fClient.flockEvent) ;
 
@@ -66,8 +69,9 @@ angular.module('zomockFeApp')
 	});
 
 
-  $scope.getRestaurants = function()
+  var prepare_params = function()
   {
+    
     var hash = {};
 
     if($scope.selectedCategory)
@@ -102,11 +106,56 @@ angular.module('zomockFeApp')
     hash.sort = 'rating';
     hash.order = 'desc';
 
+    return hash;
+
+  };
+
+  $scope.getRestaurants = function()
+  {
+
+    hash = prepare_params();  
     RestaurantListService.get_list(hash).then(function(result){
-    $scope.print = result;  
+      
+      $scope.print = result;  
+      $scope.pages = result.results_found/PAGE_SIZE;  
+      
+      if(result.results_found%PAGE_SIZE !== 0)    //over here find number of pages .i.e Number/10
+      {  
+        $scope.pages+=1;
+      }
 
-    }); ;
+      $scope.reveal = 1 ;    //reveal the pagination 
+    });
+  }
 
+  $scope.currentPage = 0;
+
+  $scope.paging = {
+    total: $scope.pages,
+    current: 1,
+    onPageChanged: loadPages,
+  };
+
+  function loadPages(){
+    
+    if($scope.reveal == null);
+      return ;
+    
+    console.log('Current page is : ' + $scope.paging.current);
+
+    var hash = prepare_params();
+    hash.count = PAGE_SIZE;
+    hash.start = PAGE_SIZE*($scope.paging.total - 1);
+
+    // TODO : Load current page Data here
+    
+    RestaurantListService.get_list(hash).then(function(result){      
+        $scope.print = result;        
+    
+    });
+
+    $scope.currentPage = $scope.paging.current;
+ 
   }
 
 

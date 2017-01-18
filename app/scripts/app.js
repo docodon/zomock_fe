@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngMaterial',
-    'config'
+    'config',
+    'cl.paging'
   ])
   .config(function ($routeProvider,$locationProvider,$httpProvider) {
     $routeProvider

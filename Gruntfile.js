@@ -46,7 +46,8 @@ module.exports = function (grunt) {
          ENV: {
           name: 'development',
           apiEndpoint: 'http://localhost:3000',
-          zomato_api_url: 'https://developers.zomato.com/api/v2.1'
+          zomato_api_url: 'https://developers.zomato.com/api/v2.1',
+          pagination_size: 10
          }
       }
     },
@@ -58,7 +59,8 @@ module.exports = function (grunt) {
       ENV: {
         name: 'production',
         apiEndpoint: 'http://api.livesite.com',
-        zomato_api_url: 'https://developers.zomato.com/api/v2.1'
+        zomato_api_url: 'https://developers.zomato.com/api/v2.1',
+        pagination_size: 10
        }
       }
     } 

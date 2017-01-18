@@ -1,8 +1,7 @@
-<div flex class="padding-left-5 padding-right-5 padding-bottom-5 padding-top-8">
+<div flex class="padding-left-5 padding-right-5 padding-bottom-5 padding-top-8" layout="row">
 
-  <div layout="row" flex> 
 
-    <div flex="50">
+    <div flex="25" layout="column">
 
        <md-autocomplete flex
         md-selected-item="location"
@@ -55,15 +54,13 @@
             </md-select>
         </md-input-container>
 
-
         <md-button md-no-ink class="md-primary" ng-click="getRestaurants()">Quick Restaurant List</md-button>
     
-        </div>
-
-    <div flex="50">
-
     </div>
 
-
+    <div flex="75" layout="column" layout-align="start center" ng-hide="reveal == null">
+      <cl-paging  cl-pages="pages" , cl-steps="5" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+      {{print}}
     </div>
+
 </div>
