@@ -6,35 +6,71 @@
     md-item-text="location.title"
     md-delay="300"
     md-floating-label="Enter location"
-    md-min-length="2">
+    md-min-length="2"
+    aria-label="auto complete"
+    >
 
    <span md-highlight-text="searchText">{{item.title}}</span> 
 
 </md-autocomplete>
 
-{{location}}
-
-<br>
-<br>
-<br>
-
-{{categories.length}}
-
-<br>
-<br>
-<br>
-
-{{collections.length}}
-
-<br>
-<br>
-<br>
-
-{{cuisines.length}}
-
-<br>
-<br>
-<br>
 
 
-{{establishments.length}}
+
+<label> collections </label>
+<md-input-container style="min-width: 300px;">
+    <label>Collections</label>
+    <md-select ng-model="selectedCollection" md-selected-text="selectedCollection.collection.title" >
+        <md-option ng-value="collection" ng-repeat="collection in collections">{{ collection.collection.title }}</md-option>
+    </md-select>
+</md-input-container>
+
+<br><br>
+
+
+<label>categories</label>
+<md-input-container style="min-width: 300px;">
+    <label>Categories</label>
+    <md-select ng-model="selectedCategory" md-selected-text="selectedCategory.categories.name" >
+        <md-option ng-value="category" ng-repeat="category in categories">{{ category.categories.name }}</md-option>
+    </md-select>
+</md-input-container>
+
+<br><br>
+
+<label>establishments</label>
+ <md-input-container style="min-width: 300px;">
+    <label>Establishments</label>
+    <md-select ng-model="selectedEstablishment" md-selected-text="selectedEstablishment.establishment.name" >
+        <md-option ng-value="establishment" ng-repeat="establishment in establishments">{{ establishment.establishment.name }}</md-option>
+    </md-select>
+ </md-input-container>
+
+<br><br>
+
+<label>cuisines</label>
+ <md-input-container style="min-width: 300px;">
+    <label>Cuisines</label>
+    <md-select multiple ng-model="selectedCuisines" md-selected-text="selectedCuisine.establishment.name" >
+        <md-option ng-value="cuisine" ng-repeat="cuisine in cuisines">{{ cuisine.cuisine.cuisine_name }}</md-option>
+    </md-select>
+ </md-input-container>
+
+
+<md-button md-no-ink class="md-primary" ng-click="getRestaurants()">Quick Restaurant List</md-button>
+<!-- 
+{{resp}}
+ -->
+<!-- {{categories}}
+ {{cuisine_ids}}
+ {{collection_id}}
+ {{category_id}}
+ {{establishment_id}} -->
+
+
+{{selectedEstablishment}}
+{{selectedCuisines}}
+{{selectedCollection}}
+{{selectedCategory}}
+{{print}}
+
