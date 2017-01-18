@@ -58,9 +58,34 @@
     
     </div>
 
-    <div flex="75" layout="column" layout-align="start center" ng-hide="reveal == null">
-      <cl-paging  cl-pages="pages" , cl-steps="5" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
-      {{print}}
-    </div>
+    <div flex="75" layout="column" layout-align="start center" >
+       <div ng-if="print"> 
+           <div>
+                <cl-paging  cl-pages="paging.total" , cl-steps="5" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+            </div>
+            <div layout="column">
+                <div ng-repeat="restaurant in print.restaurants" layout="column" flex>
+                    <div layout="row" flex>
+                        <div flex layout="column" flex>
+                            <label class="rest-heading">{{restaurant.restaurant.name}}</label>
+                            <label class="rest-city">{{restaurant.restaurant.location.city}}</label>
+                            <label class="rest-address">{{restaurant.restaurant.location.address}}</label>
+                        </div>
+                        <div flex>
+                            <img class="rest-thumb" ng-src="{{restaurant.restaurant.thumb}}" />
+                        </div>
+                    </div>
+                    <div flex layout="column">   
+                        <label class="rest-cuisine">CUISINES {{restaurant.restaurant.cuisines}}</label>
+                        <label class="rest-cuisine">COST FOR TWO  {{restaurant.restaurant.currency}}{{restaurant.restaurant.average_cost_for_two}}</label>
+                        <label class="rest-cuisine">RATING  {{restaurant.restaurant.user_rating.aggregate_rating}}</label>
+                    </div>
+                 <md-divider ng-if="!$last"></md-divider>
+                </div>
+            </div>
+        </div>
+    </div> 
+    
 
 </div>
+

@@ -113,31 +113,31 @@ angular.module('zomockFeApp')
   $scope.getRestaurants = function()
   {
 
-    hash = prepare_params();  
-    RestaurantListService.get_list(hash).then(function(result){
+      var hash = prepare_params();  
+      RestaurantListService.get_list(hash).then(function(result){
       
       $scope.print = result;  
       $scope.pages = result.results_found/PAGE_SIZE;  
-      
+
       if(result.results_found%PAGE_SIZE !== 0)    //over here find number of pages .i.e Number/10
       {  
-        $scope.pages+=1;
+         $scope.pages+=1;
       }
 
       $scope.reveal = 1 ;    //reveal the pagination 
+   
+      $scope.paging = {
+        total: $scope.pages,
+        current: 1,
+        onPageChanged: loadPages,
+      };
     });
-  }
+  };
 
   $scope.currentPage = 0;
 
-  $scope.paging = {
-    total: $scope.pages,
-    current: 1,
-    onPageChanged: loadPages,
-  };
-
   function loadPages(){
-    
+
     if($scope.reveal == null);
       return ;
     
