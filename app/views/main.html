@@ -1,76 +1,69 @@
- <md-autocomplete flex
+<div flex class="padding-left-5 padding-right-5 padding-bottom-5 padding-top-8">
 
-    md-selected-item="location"
-    md-search-text="searchText"
-    md-items="item in querySearch(searchText)"
-    md-item-text="location.title"
-    md-delay="300"
-    md-floating-label="Enter location"
-    md-min-length="2"
-    aria-label="auto complete"
-    >
+  <div layout="row" flex> 
 
-   <span md-highlight-text="searchText">{{item.title}}</span> 
+    <div flex="50">
 
-</md-autocomplete>
+       <md-autocomplete flex
+        md-selected-item="location"
+        md-search-text="searchText"
+        md-items="item in querySearch(searchText)"
+        md-item-text="location.title"
+        md-delay="300"
+        md-floating-label="Enter location"
+        md-min-length="2"
+        aria-label="auto complete"
+        >
+        <span md-highlight-text="searchText">{{item.title}}</span> 
+        </md-autocomplete>
 
+        <label>collections</label>
+        <md-input-container class="occ-full" md-floating-label="Enter location"> 
+            <md-select 
+            md-option-empty 
+            ng-model="selectedCollection" 
+            md-selected-text="selectedCollection.collection.title" 
+            >
+            <md-option ng-value="collection" ng-repeat="collection in collections">{{ collection.collection.title }}</md-option>
+            </md-select>
+        </md-input-container>
 
-
-
-<label> collections </label>
-<md-input-container style="min-width: 300px;">
-    <label>Collections</label>
-    <md-select ng-model="selectedCollection" md-selected-text="selectedCollection.collection.title" >
-        <md-option ng-value="collection" ng-repeat="collection in collections">{{ collection.collection.title }}</md-option>
-    </md-select>
-</md-input-container>
-
-<br><br>
-
-
-<label>categories</label>
-<md-input-container style="min-width: 300px;">
-    <label>Categories</label>
-    <md-select ng-model="selectedCategory" md-selected-text="selectedCategory.categories.name" >
-        <md-option ng-value="category" ng-repeat="category in categories">{{ category.categories.name }}</md-option>
-    </md-select>
-</md-input-container>
-
-<br><br>
-
-<label>establishments</label>
- <md-input-container style="min-width: 300px;">
-    <label>Establishments</label>
-    <md-select ng-model="selectedEstablishment" md-selected-text="selectedEstablishment.establishment.name" >
-        <md-option ng-value="establishment" ng-repeat="establishment in establishments">{{ establishment.establishment.name }}</md-option>
-    </md-select>
- </md-input-container>
-
-<br><br>
-
-<label>cuisines</label>
- <md-input-container style="min-width: 300px;">
-    <label>Cuisines</label>
-    <md-select multiple ng-model="selectedCuisines" md-selected-text="selectedCuisine.establishment.name" >
-        <md-option ng-value="cuisine" ng-repeat="cuisine in cuisines">{{ cuisine.cuisine.cuisine_name }}</md-option>
-    </md-select>
- </md-input-container>
+        <br><br>
 
 
-<md-button md-no-ink class="md-primary" ng-click="getRestaurants()">Quick Restaurant List</md-button>
-<!-- 
-{{resp}}
- -->
-<!-- {{categories}}
- {{cuisine_ids}}
- {{collection_id}}
- {{category_id}}
- {{establishment_id}} -->
+        <label>categories</label>
+        <md-input-container class="occ-full">
+            <md-select ng-model="selectedCategory" md-selected-text="selectedCategory.categories.name" >
+                <md-option ng-value="category" ng-repeat="category in categories">{{ category.categories.name }}</md-option>
+            </md-select>
+        </md-input-container>
 
 
-{{selectedEstablishment}}
-{{selectedCuisines}}
-{{selectedCollection}}
-{{selectedCategory}}
-{{print}}
+            <label>collections</label>
+        <md-input-container class="occ-full">
+            <md-select ng-model="selectedEstablishment" md-selected-text="selectedEstablishment.establishment.name" >
+                <md-option ng-value="establishment" ng-repeat="establishment in establishments">{{ establishment.establishment.name }}</md-option>
+            </md-select>
+        </md-input-container>
 
+        <br><br>
+
+        <label>cuisines</label>
+        <md-input-container class="occ-full">
+            <md-select multiple ng-model="selectedCuisines" md-selected-text="selectedCuisine.establishment.name" >
+                <md-option ng-value="cuisine" ng-repeat="cuisine in cuisines">{{ cuisine.cuisine.cuisine_name }}</md-option>
+            </md-select>
+        </md-input-container>
+
+
+        <md-button md-no-ink class="md-primary" ng-click="getRestaurants()">Quick Restaurant List</md-button>
+    
+        </div>
+
+    <div flex="50">
+
+    </div>
+
+
+    </div>
+</div>

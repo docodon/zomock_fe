@@ -2,10 +2,10 @@
 
 angular.module('zomockFeApp')
 .service('RestaurantListService',function($http, ENV) {
-	this.get_list = function(city_id){
-		return $http.get(ENV.zomato_api_url + "/establishments.json",
+	this.get_list = function(hash){
+		return $http.get(ENV.zomato_api_url + "/search.json",
 			{ 
-				params: {'city_id': city_id},
+				params: hash,
 				headers: {"user-key": ENV["zomato_key"]} 
 			})
 			.then(function(response) {

@@ -94,13 +94,18 @@ angular.module('zomockFeApp')
         cuisine_ids.push( $scope.selectedCuisines[i].cuisine.cuisine_id );
       }
 
-      hash.cusines = cuisine_ids.join();
+      hash.cuisines = cuisine_ids.join();
     }
 
     hash.lat = $scope.location.latitude;
     hash.lon = $scope.location.longitude;
+    hash.sort = 'rating';
+    hash.order = 'desc';
 
-    $scope.print = hash;
+    RestaurantListService.get_list(hash).then(function(result){
+    $scope.print = result;  
+
+    }); ;
 
   }
 
