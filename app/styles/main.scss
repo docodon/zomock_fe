@@ -220,12 +220,13 @@ body {
 .verticle-scroll{
   height: 450px;   
   overflow-y: scroll;
-  overflow-x: hidden
+  overflow-x: hidden;
+  width: 100%
 }
 
 .restaurant{
   min-height: 200px;
-
+  width: 100%;
 }
 
 .padding-top-bottom-20px{
@@ -239,4 +240,20 @@ body {
 
 .padding-left-3{
   padding-left: 3%;
+}
+
+.padding-right-3{
+  padding-right: 3%;
+}
+
+.padding-bottom-8{
+  padding-bottom: 4%;
+}
+
+.occh-full{
+  height: 100%;
+}
+
+.padding-right-100px{
+  padding-right: 100px;
 }

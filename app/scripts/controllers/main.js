@@ -11,7 +11,8 @@ angular.module('zomockFeApp')
   .controller('MainCtrl', function ($scope, $routeParams, $location, $http, 
   									ENV, CategoryService,CollectionService,
   									CuisineService, EstablishmentService,
-  									AuthenticateService, RestaurantListService) {
+  									AuthenticateService, RestaurantListService,  
+                    $timeout, $interval ) {
 
     var PAGE_SIZE = ENV.pagination_size ;
 
@@ -165,7 +166,34 @@ angular.module('zomockFeApp')
     $scope.currentPage = $scope.paging.current;
  
   }
+  
 
+  // ng-image-gallery settings
+  
+  $scope.conf = 
+  {
+    thumbnails  :   false, 
+    inline    :   false,
+    bubbles   :   true,
+    imgBubbles  :   true, 
+    bgClose   :   false
+  };
+
+  $scope.images = [
+  {
+    'thumbUrl': 'https://upload.wikimedia.org/wikipedia/commons/3/30/ChessStartingPosition.jpg',
+    'url': 'https://upload.wikimedia.org/wikipedia/commons/3/30/ChessStartingPosition.jpg'
+  },
+  {
+    'thumbUrl': 'https://upload.wikimedia.org/wikipedia/commons/3/30/ChessStartingPosition.jpg',
+    'url': 'https://upload.wikimedia.org/wikipedia/commons/3/30/ChessStartingPosition.jpg'
+  }
+  ];
+
+  $scope.methods = {};
+  $scope.openGallery = function(){
+      $scope.methods.open();
+  };
 
 
 });
