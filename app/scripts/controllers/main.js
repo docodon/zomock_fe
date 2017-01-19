@@ -105,6 +105,7 @@ angular.module('zomockFeApp')
     hash.lon = $scope.location.longitude;
     hash.sort = 'rating';
     hash.order = 'desc';
+    hash.count = PAGE_SIZE;
 
     return hash;
 
@@ -114,9 +115,12 @@ angular.module('zomockFeApp')
   {
 
       var hash = prepare_params();  
+      hash.start = 0;
+
       RestaurantListService.get_list(hash).then(function(result){
       
-      $scope.print = result;  
+      $scope.rest_list = result;
+      result.results_found = Math.min(100,result.results_found);  
       $scope.pages = result.results_found/PAGE_SIZE;  
 
       if(result.results_found%PAGE_SIZE !== 0)    //over here find number of pages .i.e Number/10
@@ -124,6 +128,11 @@ angular.module('zomockFeApp')
          $scope.pages+=1;
       }
 
+      if(result.results_shown===0)
+      {  
+        $scope.reveal = null;
+      }
+      else
       $scope.reveal = 1 ;    //reveal the pagination 
    
       $scope.paging = {
@@ -138,19 +147,18 @@ angular.module('zomockFeApp')
 
   function loadPages(){
 
-    if($scope.reveal == null);
+    if($scope.reveal == null)
       return ;
     
-    console.log('Current page is : ' + $scope.paging.current);
+    // console.log('Current page is : ' + $scope.paging.current);
 
-    var hash = prepare_params();
-    hash.count = PAGE_SIZE;
-    hash.start = PAGE_SIZE*($scope.paging.total - 1);
+    $scope.hash = prepare_params();
+    $scope.hash.start = PAGE_SIZE*($scope.paging.current - 1);
 
     // TODO : Load current page Data here
     
-    RestaurantListService.get_list(hash).then(function(result){      
-        $scope.print = result;        
+    RestaurantListService.get_list($scope.hash).then(function(result){      
+        $scope.rest_list = result;        
     
     });
 

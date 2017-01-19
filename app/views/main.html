@@ -1,4 +1,4 @@
-<div flex class="padding-left-5 padding-right-5 padding-bottom-5 padding-top-8" layout="row">
+<div flex class="padding-left-3 padding-bottom-5 padding-top-8" layout="row">
 
 
     <div flex="25" layout="column">
@@ -59,20 +59,20 @@
     </div>
 
     <div flex="75" layout="column" layout-align="start center" >
-       <div ng-if="print"> 
-           <div>
-                <cl-paging  cl-pages="paging.total" , cl-steps="5" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+       <div ng-if="reveal==1"> 
+           <div class="padding-bottom-8">
+                <cl-paging  cl-pages="paging.total" , cl-steps="3" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
             </div>
-            <div layout="column">
-                <div ng-repeat="restaurant in print.restaurants" layout="column" flex>
-                    <div layout="row" flex>
+            <div class="verticle-scroll" layout="column"> 
+                <div class="restaurant padding-top-bottom-20px" ng-repeat="restaurant in rest_list.restaurants" layout="column">
+                    <div layout="row">
                         <div flex layout="column" flex>
                             <label class="rest-heading">{{restaurant.restaurant.name}}</label>
                             <label class="rest-city">{{restaurant.restaurant.location.city}}</label>
                             <label class="rest-address">{{restaurant.restaurant.location.address}}</label>
                         </div>
-                        <div flex>
-                            <img class="rest-thumb" ng-src="{{restaurant.restaurant.thumb}}" />
+                        <div>
+                            <img class="rest-thumb" ng-src="{{restaurant.restaurant.thumb || 'default.png'}}" />
                         </div>
                     </div>
                     <div flex layout="column">   
@@ -83,6 +83,7 @@
                  <md-divider ng-if="!$last"></md-divider>
                 </div>
             </div>
+            </md-content>
         </div>
     </div> 
     
