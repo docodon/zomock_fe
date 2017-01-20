@@ -12,7 +12,7 @@ angular.module('zomockFeApp')
   									ENV, CategoryService,CollectionService,
   									CuisineService, EstablishmentService,
   									AuthenticateService, RestaurantListService,  
-                    $timeout, $interval ) {
+                    $timeout, $interval, MenuImageService ) {
 
     var PAGE_SIZE = ENV.pagination_size ;
 
@@ -20,12 +20,12 @@ angular.module('zomockFeApp')
     // $scope.fClient = $location.search();
     // $scope.event = JSON.parse($scope.fClient.flockEvent) ;
 
-   // $scope.fClient = {"flockClient":"desktop",
-   //                   "flockEventToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBJZCI6ImQ4NzRlNTFiLWFjZGEtNGQ5Zi04ZDUxLTRiMTg2NzU5MzY4MyIsImV4cCI6MTQ4NTMxNDE0MywidXNlcklkIjoidTpleW1tbDdrb2xrdW1lbDFtIiwiaWF0IjoxNDg0NzA5MzQzLCJqdGkiOiJlZDlmZmZhZS04ZjY2LTQyZTgtYTRmOC0zMzQzY2U0ZDJiOWEifQ.Diahim_D8Fsnj9LTRhz8hkuSn0RJQkdjsABzIaOe07g",
-   //                   "flockWidgetType":"modal",
-   //                   "flockClaimToken":"0.22515012633252884_d874e51b-acda-4d9f-8d51-4b1867593683",
-   //                   "flockEvent":"{\"chatName\":\"Lobby\",\"chat\":\"g:101239_lobby\",\"userName\":\"Dhruv Sharma\",\"userId\":\"u:eymml7kolkumel1m\",\"name\":\"client.pressButton\",\"button\":\"appLauncherButton\"}"
-   //                  };
+   $scope.fClient = {"flockClient":"desktop",
+                     "flockEventToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBJZCI6ImQ4NzRlNTFiLWFjZGEtNGQ5Zi04ZDUxLTRiMTg2NzU5MzY4MyIsImV4cCI6MTQ4NTMxNDE0MywidXNlcklkIjoidTpleW1tbDdrb2xrdW1lbDFtIiwiaWF0IjoxNDg0NzA5MzQzLCJqdGkiOiJlZDlmZmZhZS04ZjY2LTQyZTgtYTRmOC0zMzQzY2U0ZDJiOWEifQ.Diahim_D8Fsnj9LTRhz8hkuSn0RJQkdjsABzIaOe07g",
+                     "flockWidgetType":"modal",
+                     "flockClaimToken":"0.22515012633252884_d874e51b-acda-4d9f-8d51-4b1867593683",
+                     "flockEvent":"{\"chatName\":\"Lobby\",\"chat\":\"g:101239_lobby\",\"userName\":\"Dhruv Sharma\",\"userId\":\"u:eymml7kolkumel1m\",\"name\":\"client.pressButton\",\"button\":\"appLauncherButton\"}"
+                    };
 
 
    //  var auth_response  = AuthenticateService.launch_app($scope.fClient.flockEventToken);
@@ -40,34 +40,34 @@ angular.module('zomockFeApp')
 
     $scope.location = {"entity_type":"city","entity_id":5,"title":"Pune","latitude":18.520469,"longitude":73.85662,"city_id":5,"city_name":"Pune","country_id":1,"country_name":"India"};
 
-    $scope.querySearch = function(query){
-    	return $http.get("https://developers.zomato.com/api/v2.1/locations.json", 
-    		{ params: {query: query} , headers: {"user-key": ENV['zomato_key']} } 
-    		).then(function(response){
-           	return response.data.location_suggestions;
-        	})
-        };
+ //    $scope.querySearch = function(query){
+ //    	return $http.get("https://developers.zomato.com/api/v2.1/locations.json", 
+ //    		{ params: {query: query} , headers: {"user-key": ENV['zomato_key']} } 
+ //    		).then(function(response){
+ //           	return response.data.location_suggestions;
+ //        	})
+ //        };
 
-    var category_resp = CategoryService.categories();
-  	category_resp.then(function(result){
- 		$scope.categories = result.categories;	
-	});
+ //    var category_resp = CategoryService.categories();
+ //  	category_resp.then(function(result){
+ // 		$scope.categories = result.categories;	
+	// });
 
 
-    var collection_resp = CollectionService.collections($scope.location.city_id);
- 	collection_resp.then(function(result){
- 		$scope.collections = result.collections;	
-	});
+ //    var collection_resp = CollectionService.collections($scope.location.city_id);
+ // 	collection_resp.then(function(result){
+ // 		$scope.collections = result.collections;	
+	// });
 
-    var cuisine_resp = CuisineService.cuisines($scope.location.city_id);
- 	cuisine_resp.then(function(result){
- 		$scope.cuisines = result.cuisines;	
-  });
+ //    var cuisine_resp = CuisineService.cuisines($scope.location.city_id);
+ // 	cuisine_resp.then(function(result){
+ // 		$scope.cuisines = result.cuisines;	
+ //  });
 
-    var establishment_resp = EstablishmentService.establishments($scope.location.city_id);
- 	  establishment_resp.then(function(result){
- 		 $scope.establishments = result.establishments;	
-	});
+ //    var establishment_resp = EstablishmentService.establishments($scope.location.city_id);
+ // 	  establishment_resp.then(function(result){
+ // 		 $scope.establishments = result.establishments;	
+	// });
 
 
   var prepare_params = function()
@@ -169,7 +169,7 @@ angular.module('zomockFeApp')
   
 
   // ng-image-gallery settings
-  
+
   $scope.conf = 
   {
     thumbnails  :   false, 
@@ -179,20 +179,15 @@ angular.module('zomockFeApp')
     bgClose   :   false
   };
 
-  $scope.images = [
-  {
-    'thumbUrl': 'https://upload.wikimedia.org/wikipedia/commons/3/30/ChessStartingPosition.jpg',
-    'url': 'https://upload.wikimedia.org/wikipedia/commons/3/30/ChessStartingPosition.jpg'
-  },
-  {
-    'thumbUrl': 'https://upload.wikimedia.org/wikipedia/commons/3/30/ChessStartingPosition.jpg',
-    'url': 'https://upload.wikimedia.org/wikipedia/commons/3/30/ChessStartingPosition.jpg'
-  }
-  ];
+  $scope.images = [];
 
   $scope.methods = {};
-  $scope.openGallery = function(){
-      $scope.methods.open();
+  $scope.openGallery = function(url){
+      var resp = MenuImageService.image_url_array(url,$scope.fClient.flockEventToken);
+      resp.then(function(result){
+        $scope.images = result;  
+    });
+    //$scope.methods.open();
   };
 
 

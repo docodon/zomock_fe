@@ -1,7 +1,7 @@
-<div flex class="padding-left-3 padding-bottom-5 padding-top-8" layout="row">
+<div flex class="padding-left-3 padding-right-3 padding-top-3" layout-sm="column" layout-gt-sm="row">
 
 
-    <div class="occh-full" flex="25" class="padding-right-3" layout="column">
+    <div class="occh-full  padding-right-3 padding-bottom-4" flex layout="column">
 
        <md-autocomplete flex
         md-selected-item="location"
@@ -58,27 +58,55 @@
     
     </div>
 
-    <div flex="75" class="occh-full" layout="column" layout-align="start center" >
+    <div flex="75" class="occh-full padding-left-3 padding-right-3" layout="column" layout-align="center center" >
+
+        <ng-image-gallery images="images" methods="methods" conf="conf" ></ng-image-gallery>
+
        <div ng-if="reveal===1"> 
-           <div class="padding-bottom-4" layout="row">
-                <cl-paging  cl-pages="paging.total" , cl-steps="3" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+           
+           <div class="padding-bottom-4" layout="row" layout-align="center center">
+                <cl-paging  flex="50" cl-pages="paging.total" , cl-steps="3" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
             </div>
+            
             <div class="verticle-scroll" layout="column"> 
-                <div class="restaurant padding-top-bottom-20px" ng-repeat="restaurant in rest_list.restaurants" layout="column">
-                    <div layout="row">
+                
+                <div class="restaurant padding-top-3 padding-bottom-3 padding-right-3" ng-repeat="restaurant in rest_list.restaurants" layout="column">
+                    <div class="padding-bottom-3" layout-sm="column" layout-gt-sm="row">
                         <div flex layout="column" flex>
                             <label class="rest-heading">{{restaurant.restaurant.name}}</label>
-                            <label class="rest-city">{{restaurant.restaurant.location.city}}</label>
+                            <label class="padding-top-1 rest-city">{{restaurant.restaurant.location.city}}</label>
                             <label class="rest-address">{{restaurant.restaurant.location.address}}</label>
                         </div>
                         <div>
-                            <img class="rest-thumb" ng-src="{{restaurant.restaurant.thumb || 'default.png'}}" />
+                            <img class="rest-thumb" ng-src="{{restaurant.restaurant.thumb || 'images/default.png'}}" />
                         </div>
                     </div>
-                    <div flex layout="column">   
-                        <label class="rest-cuisine">CUISINES {{restaurant.restaurant.cuisines}}</label>
-                        <label class="rest-cuisine">COST FOR TWO  {{restaurant.restaurant.currency}}{{restaurant.restaurant.average_cost_for_two}}</label>
-                        <label class="rest-cuisine">RATING  {{restaurant.restaurant.user_rating.aggregate_rating}}</label>
+                    <div flex class="padding-bottom-3" layout="column">   
+                        <div flex layout="row">
+                            <div class="rest-cuisine" flex="20">
+                                <label>CUISINES </label>
+                            </div>
+                            <div flex></div>
+                            <div class="rest-cuisine" flex="60">{{restaurant.restaurant.cuisines}}</div>
+                        </div>
+
+                        <div flex layout="row">
+                            <div class="rest-cuisine" flex="20">
+                                <label>COST FOR TWO</label>
+                            </div>
+                            <div flex></div>
+                            <div class="rest-cuisine" flex="60">{{restaurant.restaurant.currency}}{{restaurant.restaurant.average_cost_for_two}}</div>
+                        </div>
+
+                        <div flex layout="row">
+                            <div class="rest-cuisine" flex="20">
+                                <label>RATING</label>
+                            </div>
+                            <div flex></div>
+                            <div class="rest-cuisine" flex="60">{{restaurant.restaurant.user_rating.aggregate_rating}}</div>
+                        </div>
+
+                        <label ng-click="openGallery(restaurant.restaurant.menu_url)">menu</label>
                     </div>
                  <md-divider ng-if="!$last"></md-divider>
                 </div>
@@ -86,7 +114,7 @@
         </div>
     </div> 
     
-<button ng-click="openGallery()">Open Gallery</button>
+<!-- <button ng-click="openGallery()">Open Gallery</button>
 <ng-image-gallery images="images" methods="methods" conf="conf" ></ng-image-gallery>
 </div>
-
+ -->
