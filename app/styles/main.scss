@@ -189,14 +189,14 @@ body {
   font-size: 20px;
   font-family: sans-serif;
   color: #cb202d;
-  font-weight: bold
+  font-weight: bold;
 }
 
 .rest-city{
   font-size: 15px;
   font-family: sans-serif;
   color: #00000;
-  font-weight: bold
+  font-weight: bold;
 }
 
 .rest-address{
@@ -209,6 +209,7 @@ body {
   font-size: 12px;
   font-family: sans-serif;
   color: #89959B;
+  min-height: 20px;
 }
 
 .rest-thumb{
@@ -221,18 +222,31 @@ body {
   height: 450px;   
   overflow-y: scroll;
   overflow-x: hidden;
-  width: 100%
+  width: 100%;
+  margin-bottom: 5%;
 }
 
 .restaurant{
+  flex-direction: column;
   min-height: 200px;
-  width: 800px;
+  background-color: #ffffff;
+ 
+  @media (max-width:480px) { 
+    min-height: 300px;
+  };
+
  }
 
 .padding-top-bottom-20px{
   padding-bottom: 20px;
   padding-top: 20px;
 };
+
+.margin-top-bottom-20{
+  margin-bottom: 7px;
+  margin-top: 7px;
+};
+
 
 .padding-bottom-8{
   padding-bottom: 8%;
@@ -260,4 +274,49 @@ body {
 
 .padding-top-3{
   padding-top: 3%;
+}
+
+.no-change{
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.fix-width{
+
+  width: 800px;
+
+  @media (max-width:320px) { 
+    width: 300px;
+  };
+}
+
+.pad-b{
+  padding-bottom: 15px;
+}
+
+.pad-r{
+  padding-right: 15px;  
+}
+
+.pad-l{
+  padding-left: 15px;  
+}
+
+.pad-t{
+  padding-top: 15px;  
+}
+
+
+.fix-width-2{
+
+  width: 400px;
+
+  @media (max-width:480px) { 
+    width: 300px;
+  };
+}
+
+.padl-1
+{
+  padding-left: 1px;
 }

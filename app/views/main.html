@@ -1,7 +1,7 @@
 <div flex class="padding-left-3 padding-right-3 padding-top-3" layout-sm="column" layout-gt-sm="row">
 
 
-    <div class="occh-full  padding-right-3 padding-bottom-4" flex layout="column">
+    <div class="occh-full  padding-top-3 padding-left-3 padding-right-3 padding-bottom-4" flex layout="column">
 
        <md-autocomplete flex
         md-selected-item="location"
@@ -9,112 +9,125 @@
         md-items="item in querySearch(searchText)"
         md-item-text="location.title"
         md-delay="300"
-        md-floating-label="Enter location"
+        md-floating-label="Select your location"
         md-min-length="2"
         aria-label="auto complete"
         >
         <span md-highlight-text="searchText">{{item.title}}</span> 
         </md-autocomplete>
 
-        <label>collections</label>
-        <md-input-container class="occ-full" md-floating-label="Enter location"> 
+
+        <div flex class="padding-bottom-5">
+            <div layout="row">
+                <p>Quick filters</p>
+                <span flex></span>
+                <md-button ng-click="resetFilters()" class="md-icon-button md-primary" aria-label="Settings">
+                 <md-icon md-svg-icon="images/reset.svg"></md-icon>
+              </md-button>
+
+            </div>
+        </div>
+
+
+        <md-input-container flex class="occ-full"> 
+            <label>Collection</label>
             <md-select 
             md-option-empty 
             ng-model="selectedCollection" 
-            md-selected-text="selectedCollection.collection.title" 
             >
             <md-option ng-value="collection" ng-repeat="collection in collections">{{ collection.collection.title }}</md-option>
             </md-select>
         </md-input-container>
 
-        <br><br>
-
-
-        <label>categories</label>
-        <md-input-container class="occ-full">
-            <md-select ng-model="selectedCategory" md-selected-text="selectedCategory.categories.name" >
+        <md-input-container flex class="occ-full">
+        <label>Category</label>
+            <md-select ng-model="selectedCategory"> 
                 <md-option ng-value="category" ng-repeat="category in categories">{{ category.categories.name }}</md-option>
             </md-select>
         </md-input-container>
 
 
-            <label>establishments</label>
-        <md-input-container class="occ-full">
-            <md-select ng-model="selectedEstablishment" md-selected-text="selectedEstablishment.establishment.name" >
+        <md-input-container flex class="occ-full">
+            <label>Establishment</label>
+            <md-select ng-model="selectedEstablishment" >
                 <md-option ng-value="establishment" ng-repeat="establishment in establishments">{{ establishment.establishment.name }}</md-option>
             </md-select>
         </md-input-container>
 
-        <br><br>
-
-        <label>cuisines</label>
-        <md-input-container class="occ-full">
-            <md-select multiple ng-model="selectedCuisines" md-selected-text="selectedCuisine.establishment.name" >
+        <md-input-container flex class="occ-full">
+            <label>Cuisines</label>
+            <md-select multiple ng-model="selectedCuisines"  >
                 <md-option ng-value="cuisine" ng-repeat="cuisine in cuisines">{{ cuisine.cuisine.cuisine_name }}</md-option>
             </md-select>
         </md-input-container>
 
-        <md-button md-no-ink class="md-primary" ng-click="getRestaurants()">Quick Restaurant List</md-button>
+        <md-button flex md-no-ink class="md-primary" ng-click="getRestaurants()">Quick Restaurant List</md-button>
     
     </div>
 
-    <div flex="75" class="occh-full padding-left-3 padding-right-3" layout="column" layout-align="center center" >
+    <div flex-xs="100" flex-sm="100" flex-gt-sm="75" class="occh-full padding-left-3 padding-right-3" layout="column" layout-align="center center" >
 
         <ng-image-gallery images="images" methods="methods" conf="conf" ></ng-image-gallery>
 
        <div ng-if="reveal===1"> 
            
-           <div class="padding-bottom-4" layout="row" layout-align="center center">
+           <div hide-xs hide-sm class="padding-bottom-4 fix-width" layout="row" layout-align="center center">
                 <cl-paging  flex="50" cl-pages="paging.total" , cl-steps="3" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
             </div>
             
+           <div hide-gt-sm class="padding-bottom-4 fix-width" layout="row" layout-align="center center">
+                <cl-paging  flex="100" cl-pages="paging.total" , cl-steps="1" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+            </div>
+
+
             <div class="verticle-scroll" layout="column"> 
                 
-                <div class="restaurant padding-top-3 padding-bottom-3 padding-right-3" ng-repeat="restaurant in rest_list.restaurants" layout="column">
-                    <div class="padding-bottom-3" layout-sm="column" layout-gt-sm="row">
-                        <div flex layout="column" flex>
+                <div class="restaurant margin-top-bottom-20 padding-left-3 padding-bottom-3 padding-right-3 padding-top-3" ng-repeat="restaurant in rest_list.restaurants" layout="column">
+                    <div class="padding-bottom-3" flex layout-xs="column" layout-gt-xs="row">
+                        <div layout="column" flex flex-order-xs="2" class="fix-width-2">
                             <label class="rest-heading">{{restaurant.restaurant.name}}</label>
                             <label class="padding-top-1 rest-city">{{restaurant.restaurant.location.city}}</label>
                             <label class="rest-address">{{restaurant.restaurant.location.address}}</label>
                         </div>
-                        <div>
-                            <img class="rest-thumb" ng-src="{{restaurant.restaurant.thumb || 'images/default.png'}}" />
+                        <div flex-order-xs="-1">
+                            <img style="display:block; margin-left: auto;margin-right: auto;" class="rest-thumb" ng-src="{{restaurant.restaurant.thumb || 'images/default.png'}}" />
                         </div>
                     </div>
                     <div flex class="padding-bottom-3" layout="column">   
-                        <div flex layout="row">
-                            <div class="rest-cuisine" flex="20">
+                        <div flex layout="row" layout-wrap>
+                            <div class="rest-cuisine" flex="20" layout-wrap>
                                 <label>CUISINES </label>
                             </div>
                             <div flex></div>
-                            <div class="rest-cuisine" flex="60">{{restaurant.restaurant.cuisines}}</div>
+                            <div class="rest-cuisine" flex="60" layout-wrap>{{restaurant.restaurant.cuisines}}</div>
                         </div>
 
                         <div flex layout="row">
-                            <div class="rest-cuisine" flex="20">
+                            <div class="rest-cuisine" flex="20" layout-wrap>
                                 <label>COST FOR TWO</label>
                             </div>
                             <div flex></div>
-                            <div class="rest-cuisine" flex="60">{{restaurant.restaurant.currency}}{{restaurant.restaurant.average_cost_for_two}}</div>
+                            <div class="rest-cuisine" flex="60" layout-wrap>{{restaurant.restaurant.currency}}{{restaurant.restaurant.average_cost_for_two}}</div>
                         </div>
 
                         <div flex layout="row">
-                            <div class="rest-cuisine" flex="20">
+                            <div class="rest-cuisine" flex="20" layout-wrap>
                                 <label>RATING</label>
                             </div>
                             <div flex></div>
-                            <div class="rest-cuisine" flex="60">{{restaurant.restaurant.user_rating.aggregate_rating}}</div>
+                            <div class="rest-cuisine" flex="60" layout-wrap>{{restaurant.restaurant.user_rating.aggregate_rating}}</div>
                         </div>
 
-                        <label ng-click="openGallery(restaurant.restaurant.menu_url)">menu</label>
-                    </div>
+<!--                         <label ng-click="openGallery(restaurant.restaurant.menu_url)">menu</label>
+ -->                    </div>
                  <md-divider ng-if="!$last"></md-divider>
                 </div>
             </div>
         </div>
     </div> 
+</div>
+
     
 <!-- <button ng-click="openGallery()">Open Gallery</button>
 <ng-image-gallery images="images" methods="methods" conf="conf" ></ng-image-gallery>
-</div>
  -->

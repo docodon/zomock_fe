@@ -12,7 +12,7 @@ angular.module('zomockFeApp')
   									ENV, CategoryService,CollectionService,
   									CuisineService, EstablishmentService,
   									AuthenticateService, RestaurantListService,  
-                    $timeout, $interval, MenuImageService ) {
+                    $timeout, $interval, MenuImageService, $mdToast ) {
 
     var PAGE_SIZE = ENV.pagination_size ;
 
@@ -38,6 +38,17 @@ angular.module('zomockFeApp')
     $scope.selectedEstablishment = '';
     $scope.selectedCuisines = []
 
+    $scope.resetFilters = function()
+    {
+      $scope.selectedCategory = '';
+      $scope.selectedCollection = '';
+      $scope.selectedEstablishment = '';
+      $scope.selectedCuisines = []
+    };
+
+
+
+
     $scope.location = {"entity_type":"city","entity_id":5,"title":"Pune","latitude":18.520469,"longitude":73.85662,"city_id":5,"city_name":"Pune","country_id":1,"country_name":"India"};
 
  //    $scope.querySearch = function(query){
@@ -48,10 +59,10 @@ angular.module('zomockFeApp')
  //        	})
  //        };
 
- //    var category_resp = CategoryService.categories();
- //  	category_resp.then(function(result){
- // 		$scope.categories = result.categories;	
-	// });
+    var category_resp = CategoryService.categories();
+  	category_resp.then(function(result){
+ 		$scope.categories = result.categories;	
+	});
 
 
  //    var collection_resp = CollectionService.collections($scope.location.city_id);
@@ -121,6 +132,18 @@ angular.module('zomockFeApp')
       RestaurantListService.get_list(hash).then(function(result){
       
       $scope.rest_list = result;
+
+      if($scope.rest_list==-1)
+      {
+        $mdToast.show(
+        $mdToast.simple()
+        .textContent('Something went wrong, Internal error !')
+        .position('top right')
+        .hideDelay(3000)
+        );
+        return ;
+      }
+
       result.results_found = Math.min(100,result.results_found);  
       $scope.pages = result.results_found/PAGE_SIZE;  
 
@@ -130,8 +153,16 @@ angular.module('zomockFeApp')
       }
 
       if(result.results_shown===0)
-      {  
+      { 
+        $mdToast.show(
+          $mdToast.simple()
+          .textContent('No results found !')
+          .position('top right')
+          .hideDelay(3000)
+        );
+ 
         $scope.reveal = null;
+        return ;
       }
       else
       $scope.reveal = 1 ;    //reveal the pagination 

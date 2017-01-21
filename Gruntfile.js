@@ -47,7 +47,7 @@ module.exports = function (grunt) {
           name: 'development',
           apiEndpoint: 'http://localhost:3000',
           zomato_api_url: 'https://developers.zomato.com/api/v2.1',
-          pagination_size: 20,
+          pagination_size: 20
          }
       }
     },
@@ -60,7 +60,7 @@ module.exports = function (grunt) {
         name: 'production',
         apiEndpoint: 'http://api.livesite.com',
         zomato_api_url: 'https://developers.zomato.com/api/v2.1',
-        pagination_size: 20,
+        pagination_size: 20
        }
       }
     } 
