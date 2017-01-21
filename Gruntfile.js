@@ -45,7 +45,7 @@ module.exports = function (grunt) {
       constants: {
          ENV: {
           name: 'development',
-          apiEndpoint: 'http://localhost:3000',
+          apiEndpoint: 'https://murmuring-brushlands-77259.herokuapp.com',
           zomato_api_url: 'https://developers.zomato.com/api/v2.1',
           pagination_size: 20
          }
@@ -58,7 +58,7 @@ module.exports = function (grunt) {
     constants: {
       ENV: {
         name: 'production',
-        apiEndpoint: 'http://api.livesite.com',
+        apiEndpoint: 'https://murmuring-brushlands-77259.herokuapp.com',
         zomato_api_url: 'https://developers.zomato.com/api/v2.1',
         pagination_size: 20
        }

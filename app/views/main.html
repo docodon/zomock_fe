@@ -59,7 +59,7 @@
             </md-select>
         </md-input-container>
 
-        <md-button flex md-no-ink class="md-primary" ng-click="getRestaurants()">Quick Restaurant List</md-button>
+        <md-button flex md-no-ink class="md-primary" ng-click="getRestaurants()">Restaurants</md-button>
     
     </div>
 
@@ -69,12 +69,9 @@
 
        <div ng-if="reveal===1"> 
            
-           <div hide-xs hide-sm class="padding-bottom-4 fix-width" layout="row" layout-align="center center">
-                <cl-paging  flex="50" cl-pages="paging.total" , cl-steps="3" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
-            </div>
             
            <div hide-gt-sm class="padding-bottom-4 fix-width" layout="row" layout-align="center center">
-                <cl-paging  flex="100" cl-pages="paging.total" , cl-steps="1" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+                <cl-paging  flex="100" cl-pages="paging.total"  cl-steps="1"  cl-page-changed="paging.onPageChanged()"  cl-align="center center"  cl-current-page="paging.current"></cl-paging>
             </div>
 
 
@@ -121,6 +118,12 @@
                  <md-divider ng-if="!$last"></md-divider>
                 </div>
             </div>
+
+
+           <div hide-xs hide-sm class="padding-bottom-4 fix-width" layout="row" layout-align="center center">
+                <cl-paging  flex="50" cl-pages="paging.total" cl-steps="3" cl-page-changed="paging.onPageChanged()"  cl-align="center center" cl-current-page="paging.current"></cl-paging>
+            </div>
+
         </div>
     </div> 
 </div>

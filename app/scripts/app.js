@@ -17,8 +17,7 @@ angular
     'ngSanitize',
     'ngMaterial',
     'config',
-    'cl.paging',
-    'thatisuday.ng-image-gallery'
+    'cl.paging'
   ])
   .config(function ($routeProvider,$locationProvider,$httpProvider) {
     $routeProvider

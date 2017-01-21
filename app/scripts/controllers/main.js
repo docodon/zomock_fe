@@ -23,6 +23,7 @@ angular.module('zomockFeApp')
    $scope.fClient = $location.search();
    // $scope.event = JSON.parse($scope.fClient.flockEvent) ;
 
+
     var auth_response  = AuthenticateService.launch_app($scope.fClient.flockEventToken);
   	auth_response.then(function(result){
       if(result==-1)
@@ -125,6 +126,8 @@ angular.module('zomockFeApp')
       var hash = prepare_params();  
       hash.start = 0;
 
+      $scope.reveal = null;
+
       RestaurantListService.get_list(hash).then(function(result){
       
       $scope.rest_list = result;
@@ -134,7 +137,7 @@ angular.module('zomockFeApp')
         $mdToast.show(
         $mdToast.simple()
         .textContent('Something went wrong, Internal error !')
-        .position('top right')
+        .position('bottom right')
         .hideDelay(3000)
         );
         return ;
@@ -146,7 +149,7 @@ angular.module('zomockFeApp')
         $mdToast.show(
           $mdToast.simple()
           .textContent('No results found !')
-          .position('top right')
+          .position('bottom right')
           .hideDelay(3000)
         );
      
@@ -162,7 +165,7 @@ angular.module('zomockFeApp')
             $mdToast.show(
               $mdToast.simple()
               .textContent('Something went wrong, Internal error !')
-              .position('top right')
+              .position('bottom right')
               .hideDelay(3000)
             );
             return ;
@@ -175,7 +178,7 @@ angular.module('zomockFeApp')
           {  
              $scope.pages+=1;
           }
-          else
+
           $scope.reveal = 1 ;    //reveal the pagination 
        
           $scope.paging = {
