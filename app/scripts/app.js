@@ -32,6 +32,10 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/404', {
+        templateUrl: '404.html',
+        controller: 'Four04Controller'      
+      })
       .otherwise({
         redirectTo: '/'
       });
