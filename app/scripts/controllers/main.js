@@ -172,7 +172,7 @@ angular.module('zomockFeApp')
           }
 
           result.results_found = Math.min(100,result.results_found);  
-          $scope.pages = result.results_found/PAGE_SIZE;  
+          $scope.pages = Math.floor(result.results_found/PAGE_SIZE);  
 
           if(result.results_found%PAGE_SIZE !== 0)    //over here find number of pages .i.e Number/10
           {  
