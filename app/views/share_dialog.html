@@ -1,0 +1,51 @@
+<md-dialog flex class="share-dialog">
+	<md-dialog-content flex layout-xs="column" layout-gt-xs="row">
+		
+		<div flex-gt-xs="40" flex-xs="100" class="padding-left-5" layout="column">
+		 
+			<div flex></div>
+
+			<div flex>
+			    
+			    <div flex layout="row">
+				    <md-input-container flex="80" class="occ-full">
+		            	<label>Create poll in groups</label>
+		            	<md-select multiple ng-model="sel_groups">
+		               	 	<md-option ng-value="group" ng-repeat="group in group_list">{{ group.name }}</md-option>
+		            	</md-select>
+		        	</md-input-container>
+       				<div layout="column">
+	       				<div flex></div>
+	       				<md-button flex="50" md-no-ink class="md-primary" ng-click="generate_polls()">polls</md-button>	        
+	       				<div flex></div>
+	       			</div>
+		        </div>
+
+			    <div flex layout="row">
+					<md-input-container flex="80" class="occ-full">
+			        	<label>Recommend to contacts</label>
+			        	<md-select multiple ng-model="sel_contacts">
+			           	 	<md-option ng-value="contact" ng-repeat="contact in contact_list">{{ contact.firstName+" "+contact.lastName }}</md-option>
+			            </md-select>
+			        </md-input-container>
+       				<div layout="column">
+	       				<div flex></div>
+	       				<md-button flex="50" md-no-ink class="md-primary" ng-click="share_with_contacts()">share</md-button>	        
+	       				<div flex></div>
+	       			</div>
+       			</div>
+	        </div>
+			
+			<div flex></div>
+
+        </div>
+
+        <div flex></div>
+
+		<div flex class="white-bk pad-tblr-7 verticle-scroll m-top-2" layout="column">
+			<div ng-repeat="restaurant in selected_rest">
+				<img style="display:block; margin-left: auto;margin-right: auto;" class="sel-rest-thumb" ng-src="{{restaurant.thumb || 'images/default.png'}}" />
+			</div>
+		</div>
+	</md-dialog-content>
+</md-dialog>

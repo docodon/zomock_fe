@@ -1,5 +1,4 @@
 <div flex class="padding-left-3 padding-right-3 padding-top-3" layout-sm="column" layout-gt-sm="row">
-
     <div class="occh-full  padding-top-3 padding-left-3 padding-right-3 padding-bottom-4" flex layout="column">
        <md-autocomplete flex
         md-selected-item="location"
@@ -58,7 +57,7 @@
                 <md-option ng-value="cuisine" ng-repeat="cuisine in cuisines">{{ cuisine.cuisine.cuisine_name }}</md-option>
             </md-select>
         </md-input-container>
-
+        <br>
         <md-button flex md-no-ink class="md-primary" ng-click="getRestaurants()">Restaurants</md-button>
     
     </div>
@@ -74,13 +73,18 @@
                 <cl-paging  flex="100" cl-pages="paging.total"  cl-steps="1"  cl-page-changed="paging.onPageChanged()"  cl-align="center center"  cl-current-page="paging.current"></cl-paging>
             </div>
 
-
             <div class="verticle-scroll" layout="column"> 
                 
                 <div class="restaurant margin-top-bottom-20 padding-left-3 padding-bottom-3 padding-right-3 padding-top-3" ng-repeat="restaurant in rest_list.restaurants" layout="column">
                     <div class="padding-bottom-3" flex layout-xs="column" layout-gt-xs="row">
                         <div layout="column" flex flex-order-xs="2" class="fix-width-2">
-                            <label class="rest-heading">{{restaurant.restaurant.name}}</label>
+                            <label class="rest-heading">
+                            <md-checkbox 
+                                aria-label="restaurants"
+                                ng-checked="isChecked(restaurant.restaurant)"
+                                ng-click="toggle(restaurant.restaurant)">
+                            </md-checkbox>
+                            {{restaurant.restaurant.name}}</label>
                             <label class="padding-top-1 rest-city">{{restaurant.restaurant.location.city}}</label>
                             <label class="rest-address">{{restaurant.restaurant.location.address}}</label>
                         </div>
@@ -112,7 +116,6 @@
                             <div flex></div>
                             <div class="rest-cuisine" flex="60" layout-wrap>{{restaurant.restaurant.user_rating.aggregate_rating}}</div>
                         </div>
-
 <!--                         <label ng-click="openGallery(restaurant.restaurant.menu_url)">menu</label>
  -->                    </div>
                  <md-divider ng-if="!$last"></md-divider>
@@ -121,13 +124,15 @@
 
 
            <div hide-xs hide-sm class="padding-bottom-4 fix-width" layout="row" layout-align="center center">
-                <cl-paging  flex="50" cl-pages="paging.total" cl-steps="3" cl-page-changed="paging.onPageChanged()"  cl-align="center center" cl-current-page="paging.current"></cl-paging>
+                <div flex layout-align="center center">
+                    <md-button  md-no-ink class="md-primary" ng-click="openDialog()">Recommend restaurants</md-button>
+                </div>
+                <cl-paging  flex="60" cl-pages="paging.total" cl-steps="3" cl-page-changed="paging.onPageChanged()"  cl-align="center center" cl-current-page="paging.current"></cl-paging>
             </div>
 
         </div>
     </div> 
 </div>
-
     
 <!-- <button ng-click="openGallery()">Open Gallery</button>
 <ng-image-gallery images="images" methods="methods" conf="conf" ></ng-image-gallery>

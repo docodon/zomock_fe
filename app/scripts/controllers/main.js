@@ -12,7 +12,9 @@ angular.module('zomockFeApp')
   									ENV, CategoryService,CollectionService,
   									CuisineService, EstablishmentService,
   									AuthenticateService, RestaurantListService, $timeout, 
-                    $interval, MenuImageService, UpdateLocationService, $mdToast ) {
+                    $interval, MenuImageService, UpdateLocationService, $mdToast,  $mdDialog
+                    , UserContactService, UserGroupService, GeneratePollService,ShareService 
+                    ){
 
     var PAGE_SIZE = ENV.pagination_size ;
 
@@ -20,7 +22,11 @@ angular.module('zomockFeApp')
 
    $scope.location = {"entity_type":"city","entity_id":5,"title":"Pune","latitude":18.520469,"longitude":73.85662,"city_id":5,"city_name":"Pune","country_id":1,"country_name":"India"};
 
-   $scope.fClient = $location.search();
+//   $scope.fClient = $location.search();
+  $scope.fClient = {"flockClient":"desktop","flockEventToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBJZCI6ImQ4NzRlNTFiLWFjZGEtNGQ5Zi04ZDUxLTRiMTg2NzU5MzY4MyIsImV4cCI6MTQ4NzUyODU1NCwidXNlcklkIjoidTpleW1tbDdrb2xrdW1lbDFtIiwiaWF0IjoxNDg2OTIzNzU0LCJqdGkiOiI0NzFlZGQ3MC1lNTI3LTQ2NDUtOGRjNy1kNjcxNDhhOTJkZjAifQ.18b6YTaQMhS1rHe99DLO6am52ufPd9vpUP24z7UC81c",
+                  "flockWidgetType":"modal",
+                  "flockClaimToken":"0.8205162086699669_d874e51b-acda-4d9f-8d51-4b1867593683","flockEvent":"{\"chatName\":\"Lobby\",\"chat\":\"g:101239_lobby\",\"userName\":\"Dhruv Sharma\",\"userId\":\"u:eymml7kolkumel1m\",\"name\":\"client.pressButton\",\"button\":\"appLauncherButton\"}"}
+
    // $scope.event = JSON.parse($scope.fClient.flockEvent) ;
 
 
@@ -31,6 +37,7 @@ angular.module('zomockFeApp')
         $location.url('/404');
         return;
       }
+      $scope.flock_token = result.flock_token;
       $scope.location = result.location_details;
     });
 
@@ -238,5 +245,135 @@ angular.module('zomockFeApp')
     //$scope.methods.open();
   };
 
+
+  // selected restaurants 
+
+  $scope.selected_rest = {};
+
+  $scope.isChecked = function (rest){
+    return rest.R.res_id in $scope.selected_rest;
+  };
+
+  $scope.toggle = function(rest){
+    if(rest.R.res_id in $scope.selected_rest)
+      delete $scope.selected_rest[rest.R.res_id];
+    else 
+      $scope.selected_rest[rest.R.res_id] = rest;
+  };
+
+  //dialog box for sharing restaurants
+
+  $scope.openDialog = function(){
+    $mdDialog.show({
+            parent: angular.element(document.body),
+            scope: this,
+            clickOutsideToClose: true,
+            preserveScope: true,              
+            templateUrl: 'views/share_dialog.html',
+            controllerAs: 'share_dialog',
+            controller: mdDialogCtrl
+            })
+        };
+
+  var mdDialogCtrl = function ($scope) { 
+    console.log($scope.selected_rest);
+    
+    var raiseToast = function(message){
+        $mdToast.show(
+        $mdToast.simple()
+        .textContent(message)
+        .position('bottom right')
+        .hideDelay(3000)
+        );
+        return;
+    };
+
+    var contacts  = UserContactService.contacts($scope.flock_token);
+    contacts.then(function(result){   
+      if(result==-1) //raise a toast 
+      {
+        raiseToast('Not able to fetch user contacts !');
+        return;
+      }
+      $scope.contact_list = result;
+
+    });
+
+    var groups  = UserGroupService.groups($scope.flock_token); 
+    groups.then(function(result){
+      if(result==-1) //raise a toast 
+      {
+         raiseToast('not able to fetch user groups !'); 
+         return ;
+      }
+      $scope.group_list = result;
+    });
+
+    
+    $scope.sel_groups = [];
+    $scope.sel_contacts = []; 
+
+    $scope.generate_polls = function(){
+      
+      if(Object.values($scope.selected_rest).length==0)
+      {
+        raiseToast('select atleast one restaurant !');  
+        return ;
+      }
+      
+      if($scope.sel_groups.length==0)
+      {
+        raiseToast('select atleast one group !'); 
+        return ;
+      }
+
+      var gen_polls = GeneratePollService.generate($scope.sel_groups,
+                          $scope.selected_rest,$scope.fClient.flockEventToken);
+
+      gen_polls.then(function(result){
+        if(result==-1)
+        {
+          raiseToast('Not able to generate polls !'); 
+          return ;
+        }
+        else
+        {
+          raiseToast('Polls on the way !'); 
+          return ;
+        }
+      }); 
+    };
+
+    $scope.share_with_contacts = function(){
+      
+      if(Object.values($scope.selected_rest).length==0)
+      {
+        raiseToast('select atleast one restaurant !');  
+        return ;
+      }
+      if($scope.sel_contacts.length==0)
+      {
+        raiseToast('select atleast one contact !'); 
+        return ;
+      }
+
+      var share = ShareService.share($scope.sel_contacts,
+                          $scope.selected_rest,$scope.fClient.flockEventToken);
+      
+      share.then(function(result){
+        if(result==-1)
+        {
+          raiseToast('Not able to share !'); 
+          return ;
+        }
+        else
+        {
+          raiseToast('Shared !'); 
+          return ;
+        }
+      });     
+    };
+  
+  };
 
 });
