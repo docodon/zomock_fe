@@ -374,6 +374,11 @@ angular.module('zomockFeApp')
       });     
     };
   
+    $scope.resetSelected = function(){  
+      $scope.sel_groups = [];
+      $scope.sel_contacts = []; 
+    };
+
   };
 
 });

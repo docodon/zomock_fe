@@ -7,6 +7,13 @@
 
 			<div flex>
 			    
+			    <div class="pad-b" flex layout="row">
+				    <div flex="80"></div>
+				    <md-button ng-click="resetSelected()" class="md-icon-button md-primary" aria-label="clear">
+	                 <md-icon md-svg-icon="images/reset.svg"></md-icon>
+	             	 </md-button>
+			    </div>
+
 			    <div flex layout="row">
 				    <md-input-container flex="80" class="occ-full">
 		            	<label>Create poll in groups</label>
@@ -23,7 +30,7 @@
 
 			    <div flex layout="row">
 					<md-input-container flex="80" class="occ-full">
-			        	<label>Recommend to contacts</label>
+			        	<label>Share with contacts</label>
 			        	<md-select multiple ng-model="sel_contacts">
 			           	 	<md-option ng-value="contact" ng-repeat="contact in contact_list">{{ contact.firstName+" "+contact.lastName }}</md-option>
 			            </md-select>
