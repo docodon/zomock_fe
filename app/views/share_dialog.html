@@ -9,13 +9,13 @@
 			    
 			    <div class="pad-b" flex layout="row">
 				    <div flex="80"></div>
-				    <md-button ng-click="resetSelected()" class="md-icon-button md-primary" aria-label="clear">
+				    <md-button ng-click="resetSelected()" class="md-icon-button md-primary " aria-label="clear">
 	                 <md-icon md-svg-icon="images/reset.svg"></md-icon>
-	             	 </md-button>
+	             	</md-button>
 			    </div>
 
-			    <div flex layout="row">
-				    <md-input-container flex="80" class="occ-full">
+			    <div flex layout="row" layout-xs="column">
+				    <md-input-container flex="80" class="occ-full min-width-300">
 		            	<label>Create poll in groups</label>
 		            	<md-select multiple ng-model="sel_groups">
 		               	 	<md-option ng-value="group" ng-repeat="group in group_list">{{ group.name }}</md-option>
@@ -23,13 +23,13 @@
 		        	</md-input-container>
        				<div layout="column">
 	       				<div flex></div>
-	       				<md-button flex="50" md-no-ink class="md-primary" ng-click="generate_polls()">polls</md-button>	        
+	       				<md-button flex="50" md-no-ink class="md-primary" ng-disabled="requestOn==1" ng-click="generate_polls()">polls</md-button>	        
 	       				<div flex></div>
 	       			</div>
 		        </div>
 
-			    <div flex layout="row">
-					<md-input-container flex="80" class="occ-full">
+			    <div flex layout-gt-xs="row" layout-xs="column">
+					<md-input-container flex="80" class="occ-full min-width-300">
 			        	<label>Share with contacts</label>
 			        	<md-select multiple ng-model="sel_contacts">
 			           	 	<md-option ng-value="contact" ng-repeat="contact in contact_list">{{ contact.firstName+" "+contact.lastName }}</md-option>
@@ -37,7 +37,7 @@
 			        </md-input-container>
        				<div layout="column">
 	       				<div flex></div>
-	       				<md-button flex="50" md-no-ink class="md-primary" ng-click="share_with_contacts()">share</md-button>	        
+	       				<md-button flex="50" md-no-ink class="md-primary" ng-disabled="requestOn==1" ng-click="share_with_contacts()">share</md-button>	        
 	       				<div flex></div>
 	       			</div>
        			</div>

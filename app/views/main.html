@@ -69,7 +69,11 @@
        <div ng-if="reveal===1"> 
            
             
-           <div hide-gt-sm class="padding-bottom-4 fix-width" layout="row" layout-align="center center">
+           <div hide-gt-sm class="padding-bottom-4 fix-width" layout="column" layout-align="center center">
+                <div flex layout-align="center center">
+                    <md-button  md-no-ink class="md-primary" ng-click="openDialog()">Recommend restaurants</md-button>
+                </div>
+
                 <cl-paging  flex="100" cl-pages="paging.total"  cl-steps="1"  cl-page-changed="paging.onPageChanged()"  cl-align="center center"  cl-current-page="paging.current"></cl-paging>
             </div>
 

@@ -17,21 +17,15 @@ angular.module('zomockFeApp')
                     ){
 
     var PAGE_SIZE = ENV.pagination_size ;
+    $scope.requestOn = 0;
 
+    $scope.location = {"entity_type":"city","entity_id":5,"title":"Pune","latitude":18.520469,"longitude":73.85662,"city_id":5,"city_name":"Pune","country_id":1,"country_name":"India"};
 
-
-   $scope.location = {"entity_type":"city","entity_id":5,"title":"Pune","latitude":18.520469,"longitude":73.85662,"city_id":5,"city_name":"Pune","country_id":1,"country_name":"India"};
-
-//   $scope.fClient = $location.search();
-  $scope.fClient = {"flockClient":"desktop","flockEventToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBJZCI6ImQ4NzRlNTFiLWFjZGEtNGQ5Zi04ZDUxLTRiMTg2NzU5MzY4MyIsImV4cCI6MTQ4NzUyODU1NCwidXNlcklkIjoidTpleW1tbDdrb2xrdW1lbDFtIiwiaWF0IjoxNDg2OTIzNzU0LCJqdGkiOiI0NzFlZGQ3MC1lNTI3LTQ2NDUtOGRjNy1kNjcxNDhhOTJkZjAifQ.18b6YTaQMhS1rHe99DLO6am52ufPd9vpUP24z7UC81c",
-                  "flockWidgetType":"modal",
-                  "flockClaimToken":"0.8205162086699669_d874e51b-acda-4d9f-8d51-4b1867593683","flockEvent":"{\"chatName\":\"Lobby\",\"chat\":\"g:101239_lobby\",\"userName\":\"Dhruv Sharma\",\"userId\":\"u:eymml7kolkumel1m\",\"name\":\"client.pressButton\",\"button\":\"appLauncherButton\"}"}
-
-   // $scope.event = JSON.parse($scope.fClient.flockEvent) ;
-
+    $scope.fClient = $location.search();
 
     var auth_response  = AuthenticateService.launch_app($scope.fClient.flockEventToken);
-  	auth_response.then(function(result){
+   
+    auth_response.then(function(result){
       if(result==-1)
       {
         $location.url('/404');
@@ -66,16 +60,16 @@ angular.module('zomockFeApp')
     var category_resp = CategoryService.categories();
   	category_resp.then(function(result){
  		$scope.categories = result.categories;	
-	});
+	 });
 
 
     var collection_resp = CollectionService.collections($scope.location.city_id);
- 	collection_resp.then(function(result){
+ 	  collection_resp.then(function(result){
  		$scope.collections = result.collections;	
-	});
+	  });
 
     var cuisine_resp = CuisineService.cuisines($scope.location.city_id);
- 	cuisine_resp.then(function(result){
+ 	  cuisine_resp.then(function(result){
  		$scope.cuisines = result.cuisines;	
   });
 
@@ -175,7 +169,7 @@ angular.module('zomockFeApp')
               .position('bottom right')
               .hideDelay(3000)
             );
-            return ;
+           return ;
           }
 
           result.results_found = Math.min(100,result.results_found);  
@@ -275,8 +269,7 @@ angular.module('zomockFeApp')
             })
         };
 
-  var mdDialogCtrl = function ($scope) { 
-    console.log($scope.selected_rest);
+    var mdDialogCtrl = function ($scope) { 
     
     var raiseToast = function(message){
         $mdToast.show(
@@ -314,7 +307,7 @@ angular.module('zomockFeApp')
     $scope.sel_contacts = []; 
 
     $scope.generate_polls = function(){
-      
+
       if(Object.values($scope.selected_rest).length==0)
       {
         raiseToast('select atleast one restaurant !');  
@@ -330,15 +323,19 @@ angular.module('zomockFeApp')
       var gen_polls = GeneratePollService.generate($scope.sel_groups,
                           $scope.selected_rest,$scope.fClient.flockEventToken);
 
+      $scope.requestOn = 1;
+
       gen_polls.then(function(result){
         if(result==-1)
         {
-          raiseToast('Not able to generate polls !'); 
+          raiseToast('Not able to generate polls !');       
+          $scope.requestOn = 0;
           return ;
         }
         else
         {
-          raiseToast('Polls on the way !'); 
+          raiseToast('Polls on the way !');       
+          $scope.requestOn = 0;
           return ;
         }
       }); 
@@ -357,6 +354,9 @@ angular.module('zomockFeApp')
         return ;
       }
 
+
+      $scope.requestOn = 1;
+
       var share = ShareService.share($scope.sel_contacts,
                           $scope.selected_rest,$scope.fClient.flockEventToken);
       
@@ -364,11 +364,13 @@ angular.module('zomockFeApp')
         if(result==-1)
         {
           raiseToast('Not able to share !'); 
+          $scope.requestOn = 0;
           return ;
         }
         else
         {
           raiseToast('Shared !'); 
+          $scope.requestOn = 0;
           return ;
         }
       });     

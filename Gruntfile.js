@@ -48,7 +48,8 @@ module.exports = function (grunt) {
           apiEndpoint: 'http://localhost:8080',
           zomato_api_url: 'https://developers.zomato.com/api/v2.1',
           pagination_size: 20,
-          flock_api_url: 'https://api.flock.co'
+          flock_api_url: 'https://api.flock.co',
+          zomato_key: ''
          }
       }
     },
@@ -62,7 +63,8 @@ module.exports = function (grunt) {
         apiEndpoint: 'https://murmuring-brushlands-77259.herokuapp.com',
         zomato_api_url: 'https://developers.zomato.com/api/v2.1',
         pagination_size: 20,
-        flock_api_url: 'https://api.flock.co'               
+        flock_api_url: 'https://api.flock.co',
+        zomato_key: ''              
         }
       }
     } 
