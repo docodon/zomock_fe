@@ -186,10 +186,14 @@ body {
 }
 
 .rest-heading{
+  width:290px;
+  padding-top: 10px;
   font-size: 20px;
   font-family: sans-serif;
   color: #cb202d;
   font-weight: bold;
+  overflow: hidden;
+
 }
 
 .rest-city{
@@ -232,7 +236,8 @@ body {
   background-color: #ffffff;
  
   @media (max-width:480px) { 
-    min-height: 300px;
+    min-height: 400px;
+    padding-left:0px;
   };
 
  }
@@ -358,5 +363,25 @@ body {
 }
 
 .min-width-300{
-  min-width: 200px;
+  min-width: 220px;
+}
+
+.padding-top-10{
+  padding-top:10px;
+}
+
+
+
+.padding-left-3p{
+  padding-left: 3%;
+  @media (max-width:480px) { 
+    padding-left:0px;
+  };
+}
+
+.padding-right-3p{
+  padding-right: 3%;
+  @media (max-width:480px) { 
+    padding-right:0px;
+  };
 }

@@ -277,6 +277,7 @@ angular.module('zomockFeApp')
         .textContent(message)
         .position('bottom right')
         .hideDelay(3000)
+        .parent('#share-dialog-show')
         );
         return;
     };

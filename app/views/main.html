@@ -13,7 +13,6 @@
         <span md-highlight-text="searchText">{{item.title}}</span> 
         </md-autocomplete>
 
-
         <div flex class="padding-bottom-5">
             <div layout="row">
                 <p>Quick filters</p>
@@ -62,9 +61,10 @@
     
     </div>
 
-    <div flex-xs="100" flex-sm="100" flex-gt-sm="75" class="occh-full padding-left-3 padding-right-3" layout="column" layout-align="center center" >
+    <div flex-xs="100" flex-sm="100" flex-gt-sm="75" class="occh-full padding-left-3p padding-right-3p" layout="column" layout-align="center center" >
 
-        <ng-image-gallery images="images" methods="methods" conf="conf" ></ng-image-gallery>
+        <!--<ng-image-gallery images="images" methods="methods" conf="conf" ></ng-image-gallery>
+    -->
 
        <div ng-if="reveal===1"> 
            
@@ -82,13 +82,14 @@
                 <div class="restaurant margin-top-bottom-20 padding-left-3 padding-bottom-3 padding-right-3 padding-top-3" ng-repeat="restaurant in rest_list.restaurants" layout="column">
                     <div class="padding-bottom-3" flex layout-xs="column" layout-gt-xs="row">
                         <div layout="column" flex flex-order-xs="2" class="fix-width-2">
-                            <label class="rest-heading">
-                            <md-checkbox 
+                            <div class="rest-heading" layout-wrap>
+                            <md-checkbox flex="10" 
+                                style="width: 5px;height:5px;float:left;"
                                 aria-label="restaurants"
                                 ng-checked="isChecked(restaurant.restaurant)"
                                 ng-click="toggle(restaurant.restaurant)">
                             </md-checkbox>
-                            {{restaurant.restaurant.name}}</label>
+                            <label flex>{{restaurant.restaurant.name}}<label></div>
                             <label class="padding-top-1 rest-city">{{restaurant.restaurant.location.city}}</label>
                             <label class="rest-address">{{restaurant.restaurant.location.address}}</label>
                         </div>
@@ -97,7 +98,7 @@
                         </div>
                     </div>
                     <div flex class="padding-bottom-3" layout="column">   
-                        <div flex layout="row" layout-wrap>
+                        <div flex layout="row" class="padding-top-10" layout-wrap>
                             <div class="rest-cuisine" flex="20" layout-wrap>
                                 <label>CUISINES </label>
                             </div>

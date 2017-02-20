@@ -45,7 +45,7 @@ module.exports = function (grunt) {
       constants: {
          ENV: {
           name: 'development',
-          apiEndpoint: 'http://localhost:8080',
+          apiEndpoint: 'https://murmuring-brushlands-77259.herokuapp.com',
           zomato_api_url: 'https://developers.zomato.com/api/v2.1',
           pagination_size: 20,
           flock_api_url: 'https://api.flock.co',
